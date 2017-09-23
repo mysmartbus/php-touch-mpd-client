@@ -1,0 +1,160 @@
+/*****************************************************
+ * Make things more consistent throughout the pages. *
+ *****************************************************/
+
+HTML, BODY {
+    height: 100%;
+	margin: 0px;
+	padding: 0px;
+}
+
+BODY {
+    /* 100% = 16px = 1em */
+    font-size: 100%;
+    font-family: Tahoma, Geneva, sans-serif;
+}
+
+div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,span{
+	margin: 0px;
+	padding: 0px;
+}
+
+table, table th, table td {
+    border-collapse: collapse;
+    border: 0px;
+    margin: 0px;
+    padding: 0px;
+}
+
+/**************************
+ * Used by multiple pages *
+ **************************/
+
+a.button, span.button {
+    display: inline-block;
+    padding: 5px;
+    text-align: center;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.maintable {
+    width: 100%;
+}
+
+.nowplaying_title_span, .nowplaying_artist_span {
+    font-size: 1.1em;
+    font-weight: bold;
+}
+
+.song_artist_names_cell {
+    text-align: center;
+    padding-top: 8px;
+    padding-bottom: 6px;
+}
+
+.wordwrap { 
+   white-space: pre-wrap;      /* CSS3 */   
+   white-space: -moz-pre-wrap; /* Firefox */    
+   white-space: -pre-wrap;     /* Opera <7 */   
+   white-space: -o-pre-wrap;   /* Opera 7 */    
+   word-wrap: break-word;      /* IE */
+}
+
+.generic_header_cell {
+    text-align: center;
+    font-weight: bold;
+}
+
+.undecorated_href {
+    text-decoration: none;
+}
+
+/************************************************************
+ * Use these .button_* rule sets to create an on/off button *
+ ************************************************************/
+.button_background_div {
+    float: left;
+    width: 80px;
+    height: 30px;
+}
+
+.button_state_off_div {
+    margin-top: 4px;
+    margin-right: 5px;
+}
+
+.button_state_off_div div {
+    float: right;
+}
+
+.button_state_on_div {
+    margin-top: 4px;
+    margin-left: 5px;
+}
+
+.button_state_on_div div {
+    float: left;
+}
+
+.button_state_marker_div {
+    width: 30px;
+    height: 22px;
+}
+
+/*********************
+ * Used by _menu.php *
+ *********************/
+
+.tab {
+    height: 40px;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 1.25em;
+    font-weight: bold;
+    border: 1px solid #000000;
+}
+
+.currentpage {
+    border-bottom: 0px !important;
+}
+
+.menutab {
+    max-width: 37px;
+}
+
+/******************
+ * Font alignment *
+ ******************/
+
+.centertext {
+    text-align: center;
+}
+
+.lefttext {
+    text-align: left;
+}
+
+.righttext {
+    text-align: right;
+}
+
+.justifytext {
+    text-align: justify;
+}
+
+.toptext {
+	display: table-cell;
+    vertical-align: top;
+}
+
+.middletext {
+	display: table-cell;
+    vertical-align: middle;
+}
+
+.bottomtext {
+	display: table-cell;
+    vertical-align: bottom;
+}

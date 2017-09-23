@@ -1,0 +1,47 @@
+.songinfo_maintable {
+    width: 100%;
+}
+.lyrics_cell {
+    vertical-align: top;
+}
+
+.lyrics_div {
+    width: 480px;
+    height: 375px;
+    overflow-x: auto;
+    overflow-y: auto;
+    padding: 3px;
+    border: 1px solid #000000;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.data_type_cell {
+    width: 90px;
+    height: 25px;
+    border-bottom: 1px solid #000000;
+    vertical-align: bottom;
+}
+
+.data_cell {
+    width: 200px;
+    height: 25px;
+    border-bottom: 1px solid #000000;
+    vertical-align: bottom;
+}
+
+.coverart_cell {
+    text-align: center;
+    vertical-align: top;
+    padding-top: 25px;
+}
+
+.coverart_img {
+    max-height: 200px;
+    max-width: 200px;
+}
+
+.update_info_href_cell {
+    vertical-align: bottom;
+    text-align: center;
+}

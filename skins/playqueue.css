@@ -1,0 +1,143 @@
+.playqueue_maintable {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.nowplaying_title_artist_div {
+    margin-top: 5px;
+    margin-bottom: 3px;
+}
+
+.time_and_seek_table {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.seekbar_table {
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+.control_button_table {
+    margin-top: 12px;
+    margin-bottom: 14px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.control_button_table td {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.stop_button_enabled_div, .stop_button_disabled_div {
+    float: left;
+    width: 46px;
+    height: 30px;
+}
+
+.stop_button_marker_div {
+    width: 18px;
+    height: 18px;
+    margin-top: 6px;
+    margin-left: 14px;
+}
+
+.pause_button_div {
+    float: left;
+    width: 46px;
+    height: 30px;
+    background-color: #8dcdc1;
+}
+
+.pause_button_bar_div {
+    width: 12px;
+    height: 18px;
+    margin-top: 6px;
+    margin-left: 17px;
+}
+
+.pause_button_marker_left_div, .pause_button_marker_right_div {
+    width: 4px;
+    height: 100%;
+    background-color: #000000;
+}
+
+.pause_button_marker_left_div {
+    float: left;
+}
+
+.pause_button_marker_right_div {
+    float: right;
+}
+
+.status_cell {
+    width: 100px;
+    padding: 0px;
+    text-align: center;
+}
+
+.volume_percent_cell {
+    width: 140px;
+    text-align: center;
+}
+
+.modes_table {
+    margin-right: 25px;
+}
+
+.modes_table td {
+    text-align: center;
+    font-weight: bold;
+    padding-bottom: 15px;
+}
+
+.modes_on_off_span {
+    font-size: 0.9em;
+}
+
+.playlist_table {
+    width: 650px;
+    border: 1px solid #000000;
+}
+
+.playlist_count_clear_div {
+    float: left;
+    width: 648px;
+    height: 25px;
+}
+
+.playlist_count_div {
+/*    float: left; */
+    width: 200px;
+    margin-left: auto;
+    margin-right: auto;
+    font-weight: bold;
+}
+
+.clear_playqueue_button_div {
+    float: right;
+    margin-right: 5px;
+}
+
+/* Override a.button in main.css */
+.clear_playqueue_button {
+    padding: 1px !important;
+}
+
+.playlist_content_div {
+    height: 272px;
+    overflow-y: auto;
+    font-size: 1.4em;
+}
+
+.playlist_content_div a {
+    text-decoration: none;
+    color: #000000;
+}
+
+.playlist_content_div div {
+    padding-top: 2px;
+    padding-bottom: 2px;
+    padding-left: 2px;
+}

@@ -1,0 +1,76 @@
+.playlists_maintable {
+    width: 100%;
+}
+
+.playlists_maintable td {
+    border: 1px solid #FFFFFF;
+    padding-left: 6px;
+}
+
+.playlist_name_cell {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.column_cell {
+    width: 50%;
+}
+
+.file_count_table {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Over ride border set by .playlists_maintable td */
+.file_count_table td {
+    border-width: 0px;
+}
+
+.file_count_cell {
+    padding-top: 1px;
+    padding-bottom: 1px;
+    padding-right: 25px;
+}
+
+/* Over ride a.button in main.css */
+.add_all_button {
+    padding: 1px !important;
+}
+
+.column_scroll_div {
+    height: 330px;
+    overflow-y: auto;
+    font-size: 1.3em;
+}
+
+.column_scroll_div a {
+    text-decoration: none;
+}
+
+.name_div {
+    margin-bottom: 2px;
+}
+
+.refresh_row td {
+    padding-top: 9px;
+    padding-bottom: 4px;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.refresh_playlists_div {
+    float: left;
+}
+
+.clear_playqueue_div {
+    float: right;
+    padding-right: 8px;
+}
+
+.update_playlists_cell {
+    text-align: center;
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
