@@ -10,9 +10,6 @@ display_menu('database');
 $curdir = $valid->get_value('curdir', '/');
 $curdir = str_replace('//', '/', $curdir);
 
-// Connect to the MPD server
-//$mpc = new MpdClient($config['host'], $config['port'], $config['password']);
-
 // Send a command to MPD if there is one
 $command = $valid->get_value('command');
 $arg1 = $valid->get_value('arg1');
@@ -20,8 +17,8 @@ $arg2 = $valid->get_value('arg2');
 if ($command != '') {
     $rv = $mpc->sendCommand($command, $arg1, $arg2);
     // TODO:
-    //  Replace this with a message box similar to the one
-    //  mediawiki uses after saving changes to a page
+    //  Replace this with a popup message box so the flow
+    //  of the page is not messed up
     if (count($rv) > 1) {
         echo '<pre>';
         print_r($rv);
@@ -155,7 +152,14 @@ $table->new_cell('column_cell');
 echo '<div class="column_scroll_div">';
 if (is_array($files) && count($files) > 0) {
     $innertable->new_table('file_contents_table');
-    $uri = substr($curdir, 1);
+
+    // Remove leading forward slash (/) if any
+    if (substr($curdir, 0, 1) == '/') {
+        $uri = substr($curdir, 1);
+    } else {
+        $uri = $curdir;
+    }
+
     $curdir = str_replace('&', '%26', $curdir);
     foreach ($files as $key => $file) {
 

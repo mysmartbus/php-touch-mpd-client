@@ -27,7 +27,7 @@ class MpdClient {
 
         if (!$this->mpd_sock) {
             // Connection failed
-            echo '<br>Unable to connect to MPD server at '.$server.':'.$port.'<br>';
+            echo '<br>Unable to connect to the MPD server at '.$server.':'.$port.'<br>';
             echo 'Error Message: '.$errstr.'<br>Error Number: '.$errno;
             return;
         }

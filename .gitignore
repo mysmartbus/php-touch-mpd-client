@@ -1,2 +1,3 @@
 my-git-hooks-pre.sh
 my-git-hooks-post.sh
+git_commit.list

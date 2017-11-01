@@ -11,11 +11,10 @@
  * include(), a permissions error when trying to access a restricted page or some
  * other problem that the user needs to be made aware of.
  *
- * Added: 2017-03-26
+ * Added: 2007-03-02
  * Modified: 2017-03-26
 **/
-
-class Validate {
+class validate {
     private $_err;
     private $_warning;
 
@@ -44,16 +43,14 @@ class Validate {
         return $rv;
     }
     
-    public function get_value($field, $default='') {
+    public function get_value($field) {
         /**
          * Get a value from $_POST or $_GET
          *
-         * Added: 2006-10-15
-         * Modified: 2017-05-18
+         * Added: 2007-03-02
+         * Modified: 2017-03-26
          *
          * @param Required string $field Name of field to retreive
-         * @param Optional string $default Value to return if $_POST[$field]
-         *                        and $_GET[$field] are empty.
          *
          * @return String
         **/
@@ -61,25 +58,14 @@ class Validate {
         $this->clean_tags($field);
         $postone = $_POST[$field];
         $getone = (array_key_exists($field,$_GET) ? $_GET[$field] : '');
-        $value = ((!empty($_POST[$field]) || $_POST[$field]==0)?$postone:$getone);
-
-        //echo '/-'.$field.'-'.$value.'-'.$default.'-/';
-        if ($value != '') {
-            $rv = $value;
-        } elseif ($default != '') {
-            $rv = $default;
-        } else {
-            $rv = '';
-        }
-
-        return $rv;
+        return ((!empty($_POST[$field]) || $_POST[$field]==0)?$postone:$getone);
     }
 
     public function get_value_numeric($field,$default=-1) {
         /**
          * Forces the value being returned to be a number
          *
-         * Added: 2006-10-15
+         * Added: 2007-03-02
          * Modified: 2017-03-26
          *
          * @param Required string $field Name of field to retreive
@@ -120,6 +106,34 @@ class Validate {
  * Functions specifically for use with $_POST and $_GET
  * END
 **/
+
+    public function isDate($date, $format = 'Y-m-d H:i:s') {
+        /**
+         * Checks if $date is actually a date
+         *
+         * Added: 2007-03-02
+         * Modified: 2017-03-26
+         *
+         * @param Required string $date The item to test if it is a date
+         * @param Optional string $format What format is $date supposed to match
+         *
+         * @return Boolean
+        **/
+        $d = DateTime::createFromFormat($format, $date);
+
+        // Returns true if both sides of the && are true.
+        // Returns false if either side of the && is false.
+        return $d && $d->format($format) == $date;
+    }
+    
+    public function is_email($email, $msg) {
+        if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            return true;
+        } else {
+            $this->add_warning($msg);
+            return false;
+        }
+    }
 
 /**
  * BEGIN

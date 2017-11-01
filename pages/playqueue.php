@@ -11,7 +11,15 @@ $command = $valid->get_value('command');
 $arg1 = $valid->get_value('arg1');
 $arg2 = $valid->get_value('arg2');
 if ($command != '') {
-    $mpc->sendCommand($command, $arg1, $arg2);
+    $rv = $mpc->sendCommand($command, $arg1, $arg2);
+    // TODO:
+    //  Replace this with a popup message box so the flow
+    //  of the page is not messed up
+    if (count($rv) > 1) {
+        echo '<pre>';
+        print_r($rv);
+        echo '</pre>';
+    }
 }
 
 // Retreive info about currently playing song
@@ -47,12 +55,11 @@ $innertable = new HtmlTable();
 $positiontable = new HtmlTable();
 
 // Set volume levels for volume up/down buttons
-$volchange = 3;
-$volumeup = $status['volume'] + $volchange;
+$volumeup = $status['volume'] + $config['volchange'];
 if ($volumeup > 100) {
     $volumeup = 100;
 }
-$volumedown = $status['volume'] - $volchange;
+$volumedown = $status['volume'] - $config['volchange'];
 if ($volumedown < 0) {
     $volumedown = 0;
 }
@@ -66,7 +73,7 @@ if (!empty($nowplaying)) {
         list($elapsedtime, $totaltime) = explode(':',$nowplaying['Time']);
 
         // Convert from seconds to minutes and seconds
-        if ($config["display_time_elapsed"] === true) {
+        if ($config['display_time_elapsed'] === true) {
             // Show time elapsed
             $time_min = (int)($elapsedtime / 60);
             $time_sec = (int)($elapsedtime % 60);
@@ -300,7 +307,7 @@ echo '<a href="/index.php?page='.$pagename.'&amp;refreshstate='.$refreshstate.'&
 $innertable->new_cell();
 if ($status['volume'] <= 0) {
     // Unmute audio
-    echo '<a href="/index.php?page='.$pagename.'&amp;refreshstate='.$refreshstate.'&amp;command=setvol&amp;arg1=45" title="Mute Off"><img src="skins/'.$config['skin'].'/ButtonVolumeMuteActive.png" alt="Mute Off"></a>';
+    echo '<a href="/index.php?page='.$pagename.'&amp;refreshstate='.$refreshstate.'&amp;command=setvol&amp;arg1='.$config['default_volume'].'" title="Mute Off"><img src="skins/'.$config['skin'].'/ButtonVolumeMuteActive.png" alt="Mute Off"></a>';
 } else {
     // Mute audio
     echo '<a href="/index.php?page='.$pagename.'&amp;refreshstate='.$refreshstate.'&amp;command=setvol&amp;arg1=0" title="Mute On"><img src="skins/'.$config['skin'].'/ButtonVolumeMute.png" alt="Mute On"></a>';
@@ -313,7 +320,7 @@ echo '<a href="/index.php?page='.$pagename.'&amp;refreshstate='.$refreshstate.'&
 $innertable->new_cell('volume_percent_cell');
 if ($status['volume'] < 1) {
     // Unmute audio
-    echo '<a href="/index.php?page='.$pagename.'&amp;refreshstate='.$refreshstate.'&amp;command=setvol&amp;arg1=45" title="Mute Off" class="button"><b>MUTE IS ON</b></a>';
+    echo '<a href="/index.php?page='.$pagename.'&amp;refreshstate='.$refreshstate.'&amp;command=setvol&amp;arg1='.$config['default_volume'].'" title="Mute Off" class="button"><b>MUTE IS ON</b></a>';
 } else {
     // Mute audio
     echo '<a href="/index.php?page='.$pagename.'&amp;refreshstate='.$refreshstate.'&amp;command=setvol&amp;arg1=0" title="Mute On" class="button">Volume '.$status['volume'].'%</a>';
