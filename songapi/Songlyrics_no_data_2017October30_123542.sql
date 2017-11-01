@@ -42,7 +42,7 @@ CREATE TABLE `Albums` (
   `DateAdded` date DEFAULT '0000-00-00',
   `AddedBy` int(10) unsigned DEFAULT '0',
   PRIMARY KEY (`AlbumID`)
-) ENGINE=MyISAM AUTO_INCREMENT=3042 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=3043 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -62,7 +62,7 @@ CREATE TABLE `Artists` (
   `DateAdded` date DEFAULT '0000-00-00',
   `AddedBy` int(10) unsigned DEFAULT '0',
   PRIMARY KEY (`ArtistID`)
-) ENGINE=MyISAM AUTO_INCREMENT=866 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=867 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -103,7 +103,7 @@ CREATE TABLE `Lyrics` (
   `volume` int(3) DEFAULT '-1',
   PRIMARY KEY (`SongID`),
   FULLTEXT KEY `Lyrics` (`Lyrics`)
-) ENGINE=MyISAM AUTO_INCREMENT=445 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=446 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -132,4 +132,4 @@ CREATE TABLE `Settings` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-09-24 15:48:53
+-- Dump completed on 2017-10-30 12:35:43
