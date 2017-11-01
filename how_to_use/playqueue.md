@@ -4,7 +4,7 @@ This is the main tab. It displays info on the currently playing song. Also liste
 
 ---
 
-[Screenshot of Play Queue tab](./playqueue_tab.png)
+![Screenshot of Play Queue tab](./playqueue_tab.png)
 
 1. Audio track title and artist/band name  
  Tap or click on the track name to go to the [Song Info](./songinfo.md) tab  

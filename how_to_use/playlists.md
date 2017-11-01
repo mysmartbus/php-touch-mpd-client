@@ -1,6 +1,6 @@
 # Playlists Tab
 
-[Screenshot of Playlists tab](./playlists.png)
+![Screenshot of Playlists tab](./playlists.png)
 
 1. Name of selected playlist is displayed here.
 2. The number of playlists the MPD knows about.

@@ -4,7 +4,7 @@ This tab lists all of the songs in MPDs' database.
 
 ---
 
-[Screenshot of database tab](./database_tab.png)
+![Screenshot of database tab](./database_tab.png)
 
 1. The path to the list of displayed artist, albums, and songs.  
  You can also this path to locate an artist, album, and song in MPDs music directory.
@@ -22,7 +22,7 @@ This tab lists all of the songs in MPDs' database.
  
 ---
 
-[Screenshot of database tab with song buttons](./database_song_buttons.png)
+![Screenshot of database tab with song buttons](./database_song_buttons.png)
 
 If there are audio files in the current directory, some new buttons will appear.
 

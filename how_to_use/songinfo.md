@@ -1,9 +1,9 @@
 # Song Info Tab
 
-[Screenshot of Song Info tab without lyrics](./song_info_no_lyrics_no_cover_art.png)  
+![Screenshot of Song Info tab without lyrics](./song_info_no_lyrics_no_cover_art.png)  
 The above screen shot shows the tab when there are no lyrics or coverart available.
 
-[Screenshot of Song Info tab with lyrics](./song_info_with_lyrics_with_cover_art.png)  
+![Screenshot of Song Info tab with lyrics](./song_info_with_lyrics_with_cover_art.png)  
 This screen shot shows the tab with lyrics and coverart.
 
 1. Audio track title and artist/band name.
