@@ -7,7 +7,7 @@ This tab lists all of the songs in MPDs' database.
 ![Screenshot of database tab](./database_tab.png)
 
 1. The path to the list of displayed artist, albums, and songs.  
- You can also this path to locate an artist, album, and song in MPDs music directory.
+ You can also use this path to locate an artist, album, and song in MPDs music directory.
 
 2. The number of directories that can be found inside the current path.
 3. Displays how many songs are in this directory.
@@ -29,5 +29,5 @@ If there are audio files in the current directory, some new buttons will appear.
 1. Adds all of the audio files listed below to the current play queue.  
  Does not clear the play queue.
 2. The plus (+) button adds only that song to the play queue.  
- Des not automatically play the selected song.
+ Does not automatically play the selected song.
 3. Adds the song to the play queue and automatically plays it.

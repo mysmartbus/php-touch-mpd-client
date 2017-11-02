@@ -127,6 +127,9 @@ if (($debugmode === true) && ($browser != 'stderr')) {
 /**
  *************
  * Add your database connection code here.
+ *
+ * Note: When setting up database connections, I use $dbc as
+ *       the handle for the connection.
  *************
 **/
 

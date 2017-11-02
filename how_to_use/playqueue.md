@@ -25,7 +25,7 @@ This is the main tab. It displays info on the currently playing song. Also liste
    2. Unmute the audio and set the volume level to the value set in the [config file](./configfile.md).
 5. Mode controls  
  A. Random - Defaults to on. Plays a random song from the current playlist. If turned off, MPD will play the songs in the order listed.  
- B. Consume - Defaults to off. If turned off, the song will be removed from the play queue after it has been played one time.  
- C. Repeat - Defaults to off. Turn on to loop through the current play queue until someone hits the stop button.
+ B. Consume - Defaults to off. If turned on, the song will be removed from the play queue after it has been played one time.  
+ C. Repeat - Defaults to off. Turn on to loop through the current play queue until repeat mode is turned off.
 6. Lists the current song and the 4 preceeding and 4 following songs.
 7. The current song. Will always be in the middle of the list unless it is the first or last song of the play queue.
