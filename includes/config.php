@@ -101,6 +101,28 @@ $config = array(
     'get_coverart_url' => '',
 
     /**
+     * The URL to use to retrieve the custom volume level.
+     *
+     * Note: Currently not in use but is on the TODO list to finish implementing.
+     *
+     * Leave blank to disable.
+     *
+     * This is a poor mans version of audio normalization of your music collection. Instead of having to turn the volume
+     * knob of your speakers up and down between audio files, this value will tell MPD to change the volume level it
+     * plays the audio file at.
+     *
+     * To use this feature, you will need to setup your own database server and website to
+     * host the song_api.php file.
+     *
+     * Added: 2017-11-11
+     * Modified: 2017-11-11
+     *
+     * Default URL: <blank>
+     * Example URL: http://www.example.com/song_api.php?title={title}&artist={artist}&album={album}&return=volume
+    **/
+    'get_volume_url' => '',
+
+    /**
      * Default volume level to set MPD to.
      *
      * Must be an integer from 0 to 100. Setting to 0 will mute the audio, while a value of 100 will set

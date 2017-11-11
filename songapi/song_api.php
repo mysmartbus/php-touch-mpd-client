@@ -5,6 +5,7 @@
  *  Lyrics:
  *      URL: song_api.php?title={title}&artist={artist}&album={album}&return=lyrics
  *      Notes: Artist name is optional but recommended
+ *      Notes: Album name is optional but recommended
  *
  *  Volume:
  *      URL: song_api.php?title={title}&artist={artist}&return=volume
@@ -43,8 +44,13 @@
 $debugmode = false;
 
 function GenShortName($str='') {
-     // -Create the shortname from a given string
-     //  for easier searching of database
+    /**
+     * Creates the shortname from a given string
+     * for easier searching of database.
+     *
+     * Note: This function will also need to be used when adding
+     *       song info to the database so the info can be found.
+    **/
 
     // Saves a few milliseconds if $str is blank
     if ($str != '') {
@@ -130,6 +136,9 @@ if (($debugmode === true) && ($browser != 'stderr')) {
  *
  * Note: When setting up database connections, I use $dbc as
  *       the handle for the connection.
+ *
+ *       You will need to update all lines that contain $dbc to
+ *       match the functions used by your database connection.
  *************
 **/
 

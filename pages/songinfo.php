@@ -59,6 +59,7 @@ if (!empty($nowplaying)) {
     }
 
     // Retrieve song lyrics
+    // Skipped if no URL found in config file
     if ($config['get_lyrics_url'] != '') {
         $url = clean_url($config['get_lyrics_url']);
         $ch = curl_init();
@@ -73,6 +74,7 @@ if (!empty($nowplaying)) {
     }
 
     // Retrieve album cover art
+    // Skipped if no URL found in config file
     if ($config['get_coverart_url'] != '') {
         $url = clean_url($config['get_coverart_url']);
         $ch = curl_init();
