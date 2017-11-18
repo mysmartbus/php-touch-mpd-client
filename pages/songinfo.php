@@ -122,7 +122,7 @@ if (!empty($nowplaying)) {
     //           all forward slashes in the directory and file name with underscores.
     $artist = str_replace("/", "_", $nowplaying['Artist']);
     $album = str_replace("/", "_", $nowplaying['Album']);
-    echo '<a href="/index.php?page=database&curdir='.$artist.'/'.$album.'" class="undecorated_href">'.$nowplaying['Album'].'</a>';
+    echo '<a href="/index.php?page=database&curdir='.rawurlencode($artist).'/'.rawurlencode($album).'" class="undecorated_href">'.$nowplaying['Album'].'</a>';
 } else {
     echo '&nbsp;';
 }
@@ -181,7 +181,8 @@ if (isset($coverart['nocoverart'])) {
 } else {
     if (isset($coverart['coverart']) && ($coverart['coverart'] != '')) {
         // Display cover art
-        echo '<a href="/index.php?page=database&curdir='.$nowplaying['Artist'].'/'.$nowplaying['Album'].'" class="undecorated_href"><img class="coverart_img" src="'.$coverart['coverart'].'"></a>';
+        // Using rawurlencode() incase there are ampersands (&) in the name
+        echo '<a href="/index.php?page=database&curdir='.rawurlencode($nowplaying['Artist']).'/'.rawurlencode($nowplaying['Album']).'" class="undecorated_href"><img class="coverart_img" src="'.$coverart['coverart'].'"></a>';
     } elseif (isset($coverart['error'])) {
         echo $coverart['error']['msg'];
     }
