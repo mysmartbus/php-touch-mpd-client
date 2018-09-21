@@ -30,13 +30,18 @@ table, table th, table td {
  * Used by multiple pages *
  **************************/
 
-a.button, span.button {
+a.button, span.button, button[type=submit] {
     display: inline-block;
     padding: 5px;
     text-align: center;
     border-radius: 5px;
     text-decoration: none;
     font-weight: bold;
+}
+
+button[type=submit] {
+    font-size: 1em;
+    font-color: #000000;
 }
 
 .maintable {
@@ -82,20 +87,20 @@ a.button, span.button {
 
 .button_state_off_div {
     margin-top: 4px;
-    margin-right: 5px;
+    margin-left: 5px;
 }
 
 .button_state_off_div div {
-    float: right;
+    float: left;
 }
 
 .button_state_on_div {
     margin-top: 4px;
-    margin-left: 5px;
+    margin-right: 5px;
 }
 
 .button_state_on_div div {
-    float: left;
+    float: right;
 }
 
 .button_state_marker_div {

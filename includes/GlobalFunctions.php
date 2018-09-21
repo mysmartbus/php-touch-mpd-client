@@ -40,4 +40,33 @@ function cutString($str, $limit=32) {
 
 }
 // END function cutString()
+
+function getScriptName() {
+    /**
+     * Returns the script name (including file extension) and does a sanity check
+     * Strips $_GET variables from returned value
+     *
+     * Added: 2017-06-07
+     * Modified: 2017-06-07
+     *
+     * @param none
+     *
+     * @returns string $result The path to $_SERVER['PHP_SELF'] as viewed by the browser
+     *                         Example: If $_SERVER['PHP_SELF'] = /a/b/c/d/codetest.php?example=true&testing=yes
+     *                                  will return /a/b/c/d/codetest.php
+    **/
+
+    $php_self = utf8_decode($_SERVER['PHP_SELF']);
+
+    // These two lines remove anything not in $regex
+    // Items that will be kept: [a-z][A-Z][0-9][_=&/.-?+]
+    $regex = '/[^a-zA-Z0-9_=&\/\.\-\?\+]/';
+    $result = preg_replace_callback($regex,create_function('$matches','return \'\';') ,$php_self );
+
+    // Keeps file extention but removes anything that follows it
+    $result = substr($result,0,strrpos($result,".php")+4);
+
+    return $result;
+}
+// END function getScriptName()
 ?>

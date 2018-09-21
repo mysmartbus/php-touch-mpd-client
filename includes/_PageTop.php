@@ -16,19 +16,29 @@ header("Content-Type: text/html; charset=UTF-8");
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>MPD Client Web Interface</title>
+
+    <!-- jQuery javascript and CSS files -->
+    <link rel="stylesheet" href="/includes/jquery/themes/smoothness/jquery-ui.css">
+    <script src="/includes/jquery/external/jquery/jquery.js"></script>
+    <script src="/includes/jquery/jquery-ui.min.js"></script>
 <?php
 
 // Even if auto-refresh is turned on, these pages will not be automatically refreshed
 $norefresh = array(
     'database',
     'playlists',
-    'songinfo'
+    'playlists_edit',
+    'songinfo',
+    'menu'
 );
 
 // These pages will automatically refresh when the song changes
 $nextsongrefresh = array(
     'songinfo'
 );
+
+// If a page is not listed in $norefresh and $nextsongrefresh, it will automatically
+// reload if $refreshstate equals 'on'.
 
 // Anything faster than 3 seconds makes it very hard, borderline impossible, to use the interface.
 if ($config['refresh_delay'] < 3) {

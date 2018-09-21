@@ -18,6 +18,7 @@ function myAutoload($className) {
     // Used only by this section of the website
     $classlist = array(
         'MpdClient' => 'includes/cl_MpdClient.php',
+        'HtmlForm' => 'includes/cl_HtmlForm.php',
         'HtmlTable' => 'includes/cl_HtmlTable.php',
         'Validate' => 'includes/cl_Validation.php'
     );

@@ -15,11 +15,7 @@ a:visited {
     color: <?php echo $colors['a_visited']; ?>;
 }
 
-a.button {
-    background: <?php echo $colors['a_button_active']; ?>;
-}
-
-span.button {
+a.button, span.button, button[type=submit] {
     background: <?php echo $colors['a_button_active']; ?>;
 }
 

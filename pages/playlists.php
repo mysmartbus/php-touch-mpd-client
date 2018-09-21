@@ -11,7 +11,7 @@ $command = $valid->get_value('command');
 $arg1 = $valid->get_value('arg1');
 $arg2 = $valid->get_value('arg2');
 if ($command != '') {
-    $rv = $mpc->sendCommand($command, $arg1, $arg2);
+    $rv = $mpc->processCommand($command, $arg1, $arg2);
     // TODO:
     //  Replace this with a popup message box so the flow
     //  of the page is not messed up

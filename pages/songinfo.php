@@ -1,6 +1,6 @@
 <?php
 // Added: 2017-05-21
-// Modified: 2017-11-01
+// Modified: 2018-07-21
 
 require 'includes/_menu.php';
 
@@ -66,6 +66,7 @@ if (!empty($nowplaying)) {
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_HEADER, 0);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); //<-- curl does not like self-signed HTTPS certificates (Added 2018-07-21)
         $lyrics = curl_exec($ch);
         curl_close($ch);
         $lyrics = json_decode($lyrics, true);
@@ -81,6 +82,7 @@ if (!empty($nowplaying)) {
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_HEADER, 0);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); //<-- curl does not like self-signed HTTPS certificates (Added 2018-07-21)
         $coverart = curl_exec($ch);
         curl_close($ch);
         $coverart = json_decode($coverart, true);

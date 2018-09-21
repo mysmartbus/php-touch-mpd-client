@@ -65,13 +65,16 @@ function display_menu($page) {
     $maintable->new_cell($css);
     echo 'Playlists';
 
-    // Refresh on/off
-    $maintable->new_cell('tab');
-    if ($valid->get_value('refreshstate', 'on') == 'on') {
-        echo '<a href="/index.php?page='.$pagename.'&amp;refreshstate=off" title="Click to turn off" class="refresh_link_href">Refresh On</a>';
+    // Menu
+    if ($page == 'menu') {
+        $css = 'tab currentpage';
     } else {
-        echo '<a href="/index.php?page='.$pagename.'&amp;refreshstate=on" title="Click to turn on" class="refresh_link_href">Refresh Off</a>';
+        $css = 'tab';
+        $clickstring = "loadpage('menu', '".$refreshstate."')";
+        $maintable->set_onclick($clickstring);
     }
+    $maintable->new_cell($css);
+    echo 'Menu';
 
     $maintable->new_row();
     $maintable->set_colspan(6);

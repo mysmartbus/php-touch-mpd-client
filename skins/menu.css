@@ -1,84 +1,34 @@
-/*------------------------------------*\
-	NAV MENU
-\*------------------------------------*/
-
-.navdiv {
-    padding-left: 2px;
-    padding-right: 0px;
-
+.menu_maintable {
+    width: 100%;
 }
 
-.navdiv #nav .menuicons {
-    border-width:0px;
-    padding:2px 0px 2px 1px;
-    margin:2px 0px 2px 1px;
+.title_artist_cell {
+    padding-top: 6px;
+    padding-bottom: 6px;
+    border: 1px solid #FFFFFF;
 }
 
-#nav, .nav, #nav .nav li {
-    margin:0px;
-    padding:0px;
+.refreshonoff_table {
+    border: 1px solid #000000;
+    padding: 6px;
+    margin: 3px;
 }
 
-#nav li {
-    float:left;
-    display:inline;
-    cursor:pointer;
-    list-style:none;
-    padding:0px 10px 0px 10px;
-    border:1px #000 solid;
-    position:relative;
+.currentsong_table {
+    width: 100%;
+    border: 1px solid #000000;
+    padding: 6px;
+    margin: 3px;
 }
 
-#nav li ul.first {
-    left:-1px;
-    top:100%;
+.refreshonoff_table td, .currentsong_table td {
+    padding: 4px;
 }
 
-li, li a {
-    color:#000;
-    text-decoration:none;
+.button_cell {
+    padding: 5px;
 }
 
-#nav .nav li {
-    width:100%;
-    text-indent:10px;
-    line-height:30px;
-    margin-right:10px;
-    border-top:1px #000 solid;
-    border-bottom:1px #000 solid;
-    border-left:none;
-    border-right:none;
-    background:#fff;
+.text_cell {
+    padding-left: 4px;
 }
-
-#nav li a {
-    display:block;
-    width:inherit;
-    height:inherit;
-}
-
-ul.nav {
-    display:none;
-}
-
-#nav li:hover > a, #nav li:hover {
-    color:#fff;
-    background:#000;
-}
-
-li:hover > .nav {
-    display:block;
-    position:absolute;
-    width:200px;
-    top:-2px;
-    left:50%;
-    z-index:1000;
-    border:1px #000 solid;
-}
-/* AFTER DISPLAY IS THE IE GHOST HOVER FIX */
-
-li:hover {
-    position:relative;
-    z-index:2000;
-}
-/* IE7 Z-INDEX BUG FIX, MUST FALL AFTER DISPLAY RULE */

@@ -2,10 +2,6 @@
 /**
  * HTML table formatting stuff
  *
- * NOTE: Even though it has the same name as the HTML table class used by Kraven's
- *       main website, do not blindly copy this one into Kraven's main website.
- *       Some functions have been renamed while others (alot actually) have been deleted.
- *
  * Added: 2017-05-19
  * Modified: 2017-05-21
 **/

@@ -93,7 +93,7 @@ $config = array(
      *
      * To use this feature, you will need to setup your own database server and website to
      * host the song_api.php file. There does not appear to be any publicly available websites that will
-     * allow you to automatically download the full song lyrics.
+     * allow you to automatically download the album cover art.
      *
      * Default URL: <blank>
      * Example URL: http://www.example.com/song_api.php?title={title}&artist={artist}&album={album}&return=coverart

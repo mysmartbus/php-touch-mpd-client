@@ -1,0 +1,22 @@
+.playlists_edit_maintable {
+    width: 100%;
+}
+
+.playlists_edit_maintable td {
+    border: 1px solid #FFFFFF;
+}
+
+.column_cell {
+    width: 50%;
+}
+
+.column_scroll_div {
+    overflow-x: auto;
+    padding-left: 4px;
+    height: 338px;
+}
+
+.update_button_row td {
+    padding-top: 6px;
+    padding-bottom: 5px;
+}

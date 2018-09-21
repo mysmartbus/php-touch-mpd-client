@@ -11,7 +11,7 @@ $command = $valid->get_value('command');
 $arg1 = $valid->get_value('arg1');
 $arg2 = $valid->get_value('arg2');
 if ($command != '') {
-    $rv = $mpc->sendCommand($command, $arg1, $arg2);
+    $rv = $mpc->processCommand($command, $arg1, $arg2);
     // TODO:
     //  Replace this with a popup message box so the flow
     //  of the page is not messed up
@@ -137,10 +137,10 @@ $table->new_row();
 // Song name and artist/band name
 $table->new_cell('song_artist_names_cell');
 if (!empty($nowplaying)) {
-    $title = cutString($nowplaying['Title']);
-    $artist = cutString($nowplaying['Artist']);
+    $cuttitle = cutString($nowplaying['Title']);
+    $cutartist = cutString($nowplaying['Artist']);
     echo '<div class="nowplaying_title_artist_div">';
-    echo '<span class="nowplaying_title_span"><a href="/index.php?page=songinfo" class="undecorated_href">'.$title.'</a></span> by <span class="nowplaying_artist_span"><a href="/index.php?page=database&curdir='.$artist.'" class="undecorated_href">'.$artist.'</a></span>';
+    echo '<span class="nowplaying_title_span">'.$cuttitle.'</span> by <span class="nowplaying_artist_span"><a href="/index.php?page=database&curdir='.$nowplaying['Artist'].'" class="undecorated_href">'.$cutartist.'</a></span>';
     echo '</div>';
 } else {
     echo '&nbsp;';
@@ -156,7 +156,7 @@ $positiontable->new_row();
 $positiontable->new_cell('centertext');
 if (($commands["seekid"] === true) && (!empty($nowplaying))) {
     // Restart song
-    echo '<a href="/index.php?page='.$pagename.'&amp;refreshstate='.$refreshstate.'&amp;command=seekid&amp;arg1='.$nowplaying['Id'].'&amp;arg2=0" title="0:00" class="button">0:00</a>';
+    echo '<a href="/index.php?page='.$pagename.'&amp;refreshstate='.$refreshstate.'&amp;command=seekid&amp;arg1='.$nowplaying['Id'].'&amp;arg2=0" title="Restart song" class="button">0:00</a>';
 } else {
     echo '0:00';
 }
@@ -247,7 +247,7 @@ $innertable->new_row();
 
 // Previous song
 $innertable->new_cell();
-echo '<a href="/index.php?page='.$pagename.'&amp;refreshstate='.$refreshstate.'&amp;command=previous"><img src="skins/'.$config['skin'].'/ButtonPrevious.png" alt="Previous Song"></a>';
+echo '<a href="/index.php?page='.$pagename.'&amp;refreshstate='.$refreshstate.'&amp;command=previous" title="Previous Song"><img src="skins/'.$config['skin'].'/ButtonPrevious.png" alt="Previous Song"></a>';
 
 $innertable->new_cell();
 if ($status['state'] == 'play') {
@@ -275,7 +275,7 @@ if ($status['state'] == 'play') {
 
 // Next song
 $innertable->new_cell();
-echo '<a href="/index.php?page='.$pagename.'&amp;refreshstate='.$refreshstate.'&amp;command=next"><img src="skins/'.$config['skin'].'/ButtonNext.png" alt="Next Song"></a>';
+echo '<a href="/index.php?page='.$pagename.'&amp;refreshstate='.$refreshstate.'&amp;command=next" title="Next Song"><img src="skins/'.$config['skin'].'/ButtonNext.png" alt="Next Song"></a>';
 
 // Stop button
 $innertable->new_cell();
@@ -287,7 +287,7 @@ if ($status['state'] == 'stop') {
     echo '<a href="/index.php?page='.$pagename.'&amp;refreshstate='.$refreshstate.'&amp;command=stop" title="Stop"><div class="stop_button_enabled_div"><div class="stop_button_marker_div"></div></div></a>';
 }
 
-// Spacer cell
+// Status cell
 $innertable->new_cell('status_cell');
 if ($status['state'] == 'stop') {
     echo '(Stopped)';
@@ -307,10 +307,10 @@ echo '<a href="/index.php?page='.$pagename.'&amp;refreshstate='.$refreshstate.'&
 $innertable->new_cell();
 if ($status['volume'] <= 0) {
     // Unmute audio
-    echo '<a href="/index.php?page='.$pagename.'&amp;refreshstate='.$refreshstate.'&amp;command=setvol&amp;arg1='.$config['default_volume'].'" title="Mute Off"><img src="skins/'.$config['skin'].'/ButtonVolumeMuteActive.png" alt="Mute Off"></a>';
+    echo '<a href="/index.php?page='.$pagename.'&amp;refreshstate='.$refreshstate.'&amp;command=setvol&amp;arg1='.$config['default_volume'].'" title="Unmute"><img src="skins/'.$config['skin'].'/ButtonVolumeMuteActive.png" alt="Mute Off"></a>';
 } else {
     // Mute audio
-    echo '<a href="/index.php?page='.$pagename.'&amp;refreshstate='.$refreshstate.'&amp;command=setvol&amp;arg1=0" title="Mute On"><img src="skins/'.$config['skin'].'/ButtonVolumeMute.png" alt="Mute On"></a>';
+    echo '<a href="/index.php?page='.$pagename.'&amp;refreshstate='.$refreshstate.'&amp;command=setvol&amp;arg1=0" title="Mute"><img src="skins/'.$config['skin'].'/ButtonVolumeMute.png" alt="Mute On"></a>';
 }
 
 $innertable->new_cell();
@@ -318,13 +318,7 @@ echo '<a href="/index.php?page='.$pagename.'&amp;refreshstate='.$refreshstate.'&
 
 // Show volume level
 $innertable->new_cell('volume_percent_cell');
-if ($status['volume'] < 1) {
-    // Unmute audio
-    echo '<a href="/index.php?page='.$pagename.'&amp;refreshstate='.$refreshstate.'&amp;command=setvol&amp;arg1='.$config['default_volume'].'" title="Mute Off" class="button"><b>MUTE IS ON</b></a>';
-} else {
-    // Mute audio
-    echo '<a href="/index.php?page='.$pagename.'&amp;refreshstate='.$refreshstate.'&amp;command=setvol&amp;arg1=0" title="Mute On" class="button">Volume '.$status['volume'].'%</a>';
-}
+echo '<span class="button" title="Volume level">Volume '.$status['volume'].'%</span>';
 
 $innertable->end_table();
 // END control_button_table
@@ -341,7 +335,7 @@ $positiontable->new_cell();
 
 /////
 // BEGIN modes_table
-$onoffstring = '<br><span class="modes_on_off_span">On&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Off</span>';
+$onoffstring = '<br><span class="modes_on_off_span">Off&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;On</span>';
 
 $innertable->new_table('modes_table');
 
@@ -349,10 +343,10 @@ $innertable->new_table('modes_table');
 $innertable->new_row();
 $innertable->new_cell();
 echo 'Random<br><div class="button_background_div">';
-if ($status['random'] == 1) {
-    echo '<a href="/index.php?page='.$pagename.'&amp;refreshstate='.$refreshstate.'&amp;command=random&amp;arg1=0"><div class="button_state_on_div"><div class="button_state_marker_div"></div></div></a>';
+if ($status['random'] == 0) {
+    echo '<a href="/index.php?page='.$pagename.'&amp;refreshstate='.$refreshstate.'&amp;command=random&amp;arg1=1" title="Turn On"><div class="button_state_off_div"><div class="button_state_marker_div"></div></div></a>';
 } else {
-    echo '<a href="/index.php?page='.$pagename.'&amp;refreshstate='.$refreshstate.'&amp;command=random&amp;arg1=1"><div class="button_state_off_div"><div class="button_state_marker_div"></div></div></a>';
+    echo '<a href="/index.php?page='.$pagename.'&amp;refreshstate='.$refreshstate.'&amp;command=random&amp;arg1=0" title="Turn Off"><div class="button_state_on_div"><div class="button_state_marker_div"></div></div></a>';
 }
 echo '</div>'.$onoffstring;
 
@@ -360,10 +354,10 @@ echo '</div>'.$onoffstring;
 $innertable->new_row();
 $innertable->new_cell();
 echo 'Consume<br><div class="button_background_div">';
-if ($status['consume'] == 1) {
-    echo '<a href="/index.php?page='.$pagename.'&amp;refreshstate='.$refreshstate.'&amp;command=consume&amp;arg1=0"><div class="button_state_on_div"><div class="button_state_marker_div"></div></div></a>';
+if ($status['consume'] == 0) {
+    echo '<a href="/index.php?page='.$pagename.'&amp;refreshstate='.$refreshstate.'&amp;command=consume&amp;arg1=1" title="Turn On"><div class="button_state_off_div"><div class="button_state_marker_div"></div></div></a>';
 } else {
-    echo '<a href="/index.php?page='.$pagename.'&amp;refreshstate='.$refreshstate.'&amp;command=consume&amp;arg1=1"><div class="button_state_off_div"><div class="button_state_marker_div"></div></div></a>';
+    echo '<a href="/index.php?page='.$pagename.'&amp;refreshstate='.$refreshstate.'&amp;command=consume&amp;arg1=0" title="Turn Off"><div class="button_state_on_div"><div class="button_state_marker_div"></div></div></a>';
 }
 echo '</div>'.$onoffstring;
 
@@ -372,10 +366,10 @@ echo '</div>'.$onoffstring;
 $innertable->new_row();
 $innertable->new_cell();
 echo 'Repeat<br><div class="button_background_div">';
-if ($status['repeat'] == 1) {
-    echo '<a href="/index.php?page='.$pagename.'&amp;refreshstate='.$refreshstate.'&amp;command=repeat&amp;arg1=0"><div class="button_state_on_div"><div class="button_state_marker_div"></div></div></a>';
+if ($status['repeat'] == 0) {
+    echo '<a href="/index.php?page='.$pagename.'&amp;refreshstate='.$refreshstate.'&amp;command=repeat&amp;arg1=1" title="Turn On"><div class="button_state_off_div"><div class="button_state_marker_div"></div></div></a>';
 } else {
-    echo '<a href="/index.php?page='.$pagename.'&amp;refreshstate='.$refreshstate.'&amp;command=repeat&amp;arg1=1"><div class="button_state_off_div"><div class="button_state_marker_div"></div></div></a>';
+    echo '<a href="/index.php?page='.$pagename.'&amp;refreshstate='.$refreshstate.'&amp;command=repeat&amp;arg1=0" title="Turn Off"><div class="button_state_on_div"><div class="button_state_marker_div"></div></div></a>';
 }
 echo '</div>'.$onoffstring;
 

@@ -1,6 +1,6 @@
 <?php
 // Added: 2017-05-19
-// Modified: 2017-05-28
+// Modified: 2018-01-13
 
 require 'includes/_menu.php';
 
@@ -15,7 +15,7 @@ $command = $valid->get_value('command');
 $arg1 = $valid->get_value('arg1');
 $arg2 = $valid->get_value('arg2');
 if ($command != '') {
-    $rv = $mpc->sendCommand($command, $arg1, $arg2);
+    $rv = $mpc->processCommand($command, $arg1, $arg2);
     // TODO:
     //  Replace this with a popup message box so the flow
     //  of the page is not messed up
@@ -28,9 +28,10 @@ if ($command != '') {
 
 // List all directories and files inside $curdir
 $dirlist = $mpc->listFiles($curdir);
-$letters = array();
 $dirs = $dirlist['directory'];
 $files = $dirlist['file'];
+
+$letters = array();
 
 // Create the <a href=""></a> links
 foreach($dirs as $key => $dir) {
