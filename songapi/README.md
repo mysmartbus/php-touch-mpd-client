@@ -14,7 +14,7 @@ Currently, only a MySQL database schema is supplied. If you use a different data
 
 The method and PHP code used will vary according to your personal prefferences.
 
-Add your database connection code to `song_api.php` near line 133.
+Add your database connection code to `song_api.php` near line 68.
 
 When setting up database connections, I use $dbc as the handle for the connection. You will need to update all lines that contain $dbc to match the functions used by your database connection.
 
@@ -26,4 +26,4 @@ This class also is used to store/display custom warning and error messages when 
 
 The something could be a bad/failed database call, a missing file called by include(), a permissions error when trying to access a restricted page or some other problem that the user needs to be made aware of.
 
-Keep this file in the same folder as `song_api.php` to simplify setup. If you want to put `cl_Validation.php` in a different folder, you will need to update the `require ...` line near line 120 to reflect the correct path to `cl_Validation.php`.
+Keep this file in the same folder as `song_api.php` to simplify setup. If you want to put `cl_Validation.php` in a different folder, you will need to update the `require ...` line near line 55 to reflect the correct path to `cl_Validation.php`.

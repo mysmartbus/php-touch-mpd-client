@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.5.60, for debian-linux-gnu (armv8l)
+-- MySQL dump 10.13  Distrib 5.5.62, for debian-linux-gnu (armv8l)
 --
 -- Host: localhost    Database: Songlyrics
 -- ------------------------------------------------------
--- Server version	5.5.60-0+deb8u1-log
+-- Server version	5.5.62-0+deb8u1-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -42,7 +42,7 @@ CREATE TABLE `Albums` (
   `DateAdded` date DEFAULT '0000-00-00',
   `AddedBy` int(10) unsigned DEFAULT '0',
   PRIMARY KEY (`AlbumID`)
-) ENGINE=MyISAM AUTO_INCREMENT=3050 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=3051 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -103,7 +103,7 @@ CREATE TABLE `Lyrics` (
   `volume` int(3) DEFAULT '-1',
   PRIMARY KEY (`SongID`),
   FULLTEXT KEY `Lyrics` (`Lyrics`)
-) ENGINE=MyISAM AUTO_INCREMENT=459 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=461 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -132,4 +132,4 @@ CREATE TABLE `Settings` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-09-21  2:24:03
+-- Dump completed on 2019-01-29 15:57:49

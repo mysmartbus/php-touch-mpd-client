@@ -8,11 +8,9 @@ Playlists tab
 Song Info tab and database
 * Add support for lyrics in multiple languages
 
-song_api.php
-* Finish writing usage documentation
-
 Miscellaneous
 * Add ability to use passwords
+* Finish the playlist_edit.php page
 
-List last updated: 2017-11-17
+List last updated: 2019-01-29
 

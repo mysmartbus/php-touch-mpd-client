@@ -10,6 +10,6 @@ There is a seperate Readme file for each screen.
 * [Song Info](./songinfo.md)
 * [Database](./database.md)
 * [Playlists](./playlists.md)
-* [Refresh On/Off](./refresh.md)
+* [Menu](./menu.md)
 
-Some items can be customized. These items are listed in the [config file](./configfile.md).
+Some settings can be customized. These are listed in the [config file](./configfile.md).

@@ -1,4 +1,2 @@
-my-git-hooks-pre.sh
-my-git-hooks-post.sh
-git_commit.list
-song_api_convert.pl
+# Files used to test code
+/*test*

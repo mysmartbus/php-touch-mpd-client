@@ -7,10 +7,10 @@ This tab lists all of the songs in MPDs' database.
 ![Screenshot of database tab](./database_tab.png)
 
 1. The path to the list of displayed artist, albums, and songs.  
- You can also use this path to locate an artist, album, and song in MPDs music directory.
+ You can also use this path to locate an artist, album, and audio file in MPDs music directory.
 
 2. The number of directories that can be found inside the current path.
-3. Displays how many songs are in this directory.
+3. Displays how many audio files are in this directory.
 4. The first charactor of each directory inside the current path  
  Tap on each symbol or letter to jump to the artists and albums that start with that symbol or letter.
 5. The list of artists and/or albums in the current directory.

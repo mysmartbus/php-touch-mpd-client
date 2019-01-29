@@ -7,7 +7,7 @@
  * NOTE: This class assumes all songs are sorted by artist and album.
  *
  * Added: 2017-05-19
- * Modified: 2018-01-13
+ * Modified: 2018-11-05 1249
  *
 **/
 
@@ -85,21 +85,53 @@ class MpdClient {
             throw new SystemExit();
         }
 
-        $title = $result[0]['Title'];
+        foreach ($result as $key => $value) {
+            # Get the songs title
+            if ($value['field'] == 'Title') {
+                $title = trim($value['data']);
+                break;
+            }
+        }
 
         /////
         // First check if the song is already on the current playlist
     	$result = $this->_sendCommand('playlistsearch', 'title', $title);
 
         if (empty($result) || isset($result['error'])) {
+            // Song not in current playlist or the file was renamed/moved/deleted since the playlist was loaded
             echo 'Unable to queue song for immediate playback.<br>Message from MPD: '.$result['error'];
             throw new SystemExit();
         }
 
-        if (empty($result[0])) {
-            // Song not in current playlist
+        $songlist = array();
+        $count = -1;
+
+        foreach ($result as $key => $value) {
+
+            if ($value['field'] == 'file') {
+
+                // Make sure the previous song has a title to display
+                if (!isset($songlist[$count]['Title']) && isset($songlist[$count]['file'])) {
+                    // Use file name for title
+                    $a = explode('/', $songlist[$count]['file']);
+                    $songlist[$count]['Title'] = array_pop($a);
+                }
+
+                // Increment $count for each song
+                $count++;
+
+                $songlist[$count] = array();
+
+            }
+
+            $songlist[$count][$value['field']] = trim($value['data']);
+
+        } // END foreach ()
+
+        if (empty($songlist[0])) {
 
             // Add to current playlist
+            // - The result is ignored unless it indicates an error
             $result = $this->_sendCommand('add', $uri);
 
             if (empty($result) || isset($result['error'])) {
@@ -134,7 +166,7 @@ class MpdClient {
                 }
 
             }
-        } elseif (!empty($result[0])) {
+        } elseif (!empty($songlist[0])) {
             if (count($result) == 1) {
                 // Only one song named $title
                 $rv = $result[0]['Pos'];
@@ -157,8 +189,10 @@ class MpdClient {
         } else {
             // Something unexpected happened
             echo 'Received unexpected data from the command "playlistsearch title '.$title.'"<br>Data received:';
+
+            // Display the data received
             echo '<pre>';
-            print_r($results);
+            print_r($songlist);
             echo '</pre>';
             throw new SystemExit();
         }
@@ -232,7 +266,7 @@ class MpdClient {
          * Sends a command to MPD.
          *
          * Added: 2017-05-20
-         * Modified: 2018-01-16
+         * Modified: 2018-11-05 1320
          *
          * @param Required string $commmand A valid command from $this->getCommandList()
          *                                  or a custom command to do something MPD can't
@@ -251,19 +285,19 @@ class MpdClient {
     		return $ret;
     	}
 
-        // Keeps fields with the same name from overwritting each other
-        $count = 0;
-        $ret[$count] = array();
-
         // Add the arguments to the end of the command
         if ($arg2 != '') {
-            $command .= ' "'.$arg1.'" "'.$arg2.'"';
+            $runcommand = $command . ' "' . $arg1 . '" "' . $arg2 . '"';
         } elseif ($arg1 != '') {
-            $command .= ' "'.$arg1.'"';
+            $runcommand = $command . ' "' . $arg1 . '"';
+        } else {
+            $runcommand = $command;
         }
 
         // Send the command
-        fputs($this->mpd_sock, $command."\n");
+        fputs($this->mpd_sock, $runcommand."\n");
+
+        $count = 0;
 
         // Receive status info
         while (!feof($this->mpd_sock)) {
@@ -278,19 +312,24 @@ class MpdClient {
             if (strncmp("ACK", $got, strlen("ACK")) == 0) {
                 // Didn't get what we wanted
                 $ret['error'] = $got; // Error message from MPD
-                $ret['errorCmd'] = 'Command received: '.$command; // The full command sent to MPD
+                $ret['errorCmd'] = 'Command received: '.$runcommand; // The full command sent to MPD
                 break;
             }
 
-            $field = strtok($got, ":");
+            /*
+                Using strok() instead of explode() because some fields have a colon (:)
+                in their value.
+                See: https://secure.php.net/manual/en/function.strtok.php
+             */
 
-            if (isset($ret[$count][$field])) {
-                $count++;
-                $ret[$count] = array();
-            }
+            // This gets the field name
+            $ret[$count]['field'] = strtok($got, ":");
 
-            $ret[$count][$field] = strtok("\0");
-            $ret[$count][$field] = trim($ret[$count][$field]);
+            // This gets the field value and removes leading and trailing whitespace " \t\n\r\0\x0B"
+            // - The "/0" tells strtok() to return whatever is left of $got
+            $ret[$count]['data'] = trim(strtok("\0"));
+
+            $count++;
         }
 
         if (!isset($ret['error'])) {
@@ -451,8 +490,9 @@ class MpdClient {
         }
 
         foreach ($result as $key => $value) {
+
             // Save the command
-            $commands[$value['command']] = true;
+            $commands[$value['data']] = true;
 
         }
 
@@ -465,7 +505,7 @@ class MpdClient {
          * Get info for a group of songs from the current playlist.
          *
          * Added: 2017-05-20
-         * Modified: 2017-05-20
+         * Modified: 2018-11-05 1345
          *
          * @param Required integer $start The first song to get
          * @param Required integer $end The last song to get
@@ -488,24 +528,29 @@ class MpdClient {
 
         $songlist = array();
 
-        if (!empty($result[0])) {
-            $count = -1;
+        $count = -1;
 
-            foreach ($result as $key => $value) {
-                //if (count($key)
-                $count++;
-                $songlist[$count] = array();
-                foreach ($value as $field => $data) {
-                    $songlist[$count][$field] = trim($data);
-                }
+        foreach ($result as $key => $value) {
 
-                if (!isset($songlist[$count]['Title'])) {
+            if ($value['field'] == 'file') {
+
+                // Make sure the previous song has a title to display
+                if (!isset($songlist[$count]['Title']) && isset($songlist[$count]['file'])) {
                     // Use file name for title
                     $a = explode('/', $songlist[$count]['file']);
                     $songlist[$count]['Title'] = array_pop($a);
                 }
-            } // END foreach ()
-        }
+
+                // Increment $count for each song
+                $count++;
+
+                $songlist[$count] = array();
+
+            }
+
+            $songlist[$count][$value['field']] = trim($value['data']);
+
+        } // END foreach ()
 
         return $songlist;
     }
@@ -666,12 +711,10 @@ class MpdClient {
         $ret['file'] = array();
 
         foreach($result as $key => $value) {
-            foreach ($value as $k => $v) {
-                if ($k == 'directory') {
-                    $ret['directory'][] = $v;
-                } elseif ($k == 'file') {
-                    $ret['file'][] = $v;
-                }
+            if ($value['field'] == 'directory') {
+                $ret['directory'][] = $value['data'];
+            } elseif ($value['field'] == 'file') {
+                $ret['file'][] = $value['data'];
             }
         }
 
@@ -734,7 +777,7 @@ class MpdClient {
          * Get info on the currently playing song
          *
          * Added: 2017-05-20
-         * Modified: 2017-05-22
+         * Modified: 2018-11-05 1249
          *
          * @param None
          *
@@ -749,12 +792,11 @@ class MpdClient {
         }
 
         $songinfo = array();
-        $result = $result[0];
 
         foreach ($result as $key => $value) {
 
             // Save to array
-            $songinfo[$key] = trim($value);
+            $songinfo[$value['field']] = trim($value['data']);
         }
 
         if (!empty($songinfo)) {
@@ -791,7 +833,7 @@ class MpdClient {
         /**
          * Process a command before sending it to MPD.
          *
-         * All command must be sent through this function.
+         * All commands must be sent through this function.
          *
          * Added: 2017-05-20
          * Modified: 2017-06-16
@@ -838,55 +880,4 @@ class MpdClient {
 }
 // END class mpd()
 /////
-
-/**
- * Change log:
- *
- * 2018-01-13:
- *      -Added public function processCommand()
- *      -Changed visibility of function sendCommand() from public to private
- *
- * 2018-01-12:
- *      -Added public function inCurrentPlayQueue()
- *
- * 2017-06-11:
- *      -function getPlaylist() returns empty array if current play queue is empty
- *
- * 2017-06-09:
- *      -Added private function _playMeNow()
- *      -All functions now check if sendCommand() returned an error
- *
- * 2017-05-28:
- *      -Improved error handling in function listPlaylists()
- *      -Added public function getPlaylistContents()
- *
- * 2017-05-24:
- *      -Renamed function getNowPlaying() to nowPlaying()
- *      -Added public function getPlaylist()
- *      -Renamed function getSongGroup() to getPlaylist()
- *      -Added public function returnStatus()
- *      -Function nowPlaying() now returns an empty array if no song playing or paused
- *      -Function listFiles() returns an alphabetically sorted list
- *      -Added public function listPlaylists()
- *      -Removed public function commandlist()
- *      -Removed class variable $this->cmdlist
- *      -Changed visibility of function getCommandList() from private to public
- *
- * 2017-05-22:
- *      -Removed public function status()
- *      -Change visibility of function getStatusInfo() from private to public
- *      -Added public function listFiles()
- *      -Function sendCommand() now returns command results
- *
- * 2017-05-21:
- *      -Function getNowPlaying() now returns the full 'Last-Modified' string
- *
- * 2017-05-20:
- *      -Added private function getCommandList()
- *      -Added public function commandlist()
- *      -Added public function sendCommand()
- *
- * 2017-05-19:
- *      -Created file
-**/
 ?>
